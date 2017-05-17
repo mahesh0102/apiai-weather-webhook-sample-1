@@ -36,13 +36,10 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
+    if req.get("result").get("action") != "getTicketStatus":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    baseurl = "https://adpmarketplace1493047568.zendesk.com/api/v2/tickets/53.json"
+    yql_url = baseurl + "&format=json"
     result = urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
